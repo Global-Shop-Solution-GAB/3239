@@ -1,0 +1,31 @@
+Program.Sub.ScreenSU.Start
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+Variable.Global.sPart.Declare(String)
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+'Coded by: ENM
+'Project Start Date: 10/25/2010
+'Customer: BMC Industries
+'Hooks:
+'  16475
+'Other Components:
+'  Customer created Report "Inventory Part w Rev Repair.rpt ID 100014
+F.Intrinsic.Control.If(V.Caller.Hook,=,16385)
+	V.Passed.000030.Set("Rev Search")
+F.Intrinsic.Control.Else
+	V.Local.sParam.Declare(String)
+	V.Local.sValue.Declare(String)
+
+	V.Global.sPart.Set(V.Passed.000002)
+	F.Intrinsic.String.Split(V.Global.sPart,":",V.Local.sValue)
+	F.Intrinsic.String.Split("Part Number",":",V.Local.sParam)
+	F.Global.BI.PrintReport(100014,0,V.Local.sParam,V.Local.sValue,"",True)
+	'F.Global.BI.PrintReport(100109,0,V.Local.sParam,V.Local.sValue,"",True)
+F.Intrinsic.Control.EndIf
+
+Program.Sub.Main.End
+
+
